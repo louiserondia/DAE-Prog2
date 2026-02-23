@@ -1,0 +1,8 @@
+std::vector<NorseWarrior> m_Warriors =
+{
+	NorseWarrior{ "Torsten", "Shield wall strong!" , Vector2f{377, 48} },
+	NorseWarrior{ "Gunnar", "No foe shall stand!", Vector2f{752, 47} },
+	NorseWarrior{ "Skalli", "Blood and steel await!", Vector2f{150, 31} },
+	NorseWarrior{ "Thorvald", "Let the earth tremble!", Vector2f{567, 31} },
+	NorseWarrior{ "Leif", "Honor and peace guide me!", Vector2f{939, 31} },
+};
