@@ -33,5 +33,5 @@ private:
 	void ClearBackground( ) const;
 
 	Map			m_Map{};
-	Renderer	m_Renderer;
+	Renderer	m_Renderer{};
 };

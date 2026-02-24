@@ -3,13 +3,10 @@
 #include <sstream>
 
 void Map::Initialize() {
-	floors = new Texture("floors.png");
-	walls = new Texture("walls.png");
+	m_TextureManager = TextureManager::GetInstance();
 }
 
 void Map::Delete() {
-	delete floors;
-	delete walls;
 }
 
 Vector2f Map::ScreenPosFromCoord(const Vector2i& coord, float w, float h) {
@@ -25,23 +22,26 @@ void Map::InterpretToken(std::vector<Renderable>& stack, Vector2i coord, const s
 
 	Tile tile{};
 	Vector2f pos{ ScreenPosFromCoord(coord, floorSrc.width, floorSrc.height) };
+	std::pair<Texture*, Rectf> floorPair{ m_TextureManager->GetTexture(TextureManager::Type::floor, 0) };
 
 	tile.SetCoord(coord);
 	
-	stack.push_back(Renderable{ pos, floors, floorSrc, coord });
+	stack.push_back(Renderable{ pos, floorPair, coord });
 	if (token[1] != '0') {
+		std::pair<Texture*, Rectf> wallPair{ m_TextureManager->GetTexture(TextureManager::Type::wall, 0) };
+
 		tile.SetIsWestWall(true, wallSrc);
 
-		stack.push_back(Renderable{ pos + Vector2f{ 0.f, floorSrc.height / 2 }, walls, wallSrc, coord });
-		stack.push_back(Renderable{ pos + Vector2f{ 0.f, floorSrc.height }, walls, wallSrc, coord });
+		stack.push_back(Renderable{ pos.x, pos.y + floorSrc.height / 2 , wallPair, coord });
+		stack.push_back(Renderable{ pos.x, pos.y + floorSrc.height , wallPair, coord });
 	}
 	if (token[2] != '0') {
-		Rectf boundsNorth{ wallSrc };
-		boundsNorth.left = wallSrc.width;
+		std::pair<Texture*, Rectf> wallPair{ m_TextureManager->GetTexture(TextureManager::Type::wall, 1) };
 
-		stack.push_back(Renderable{ pos + Vector2f{ floorSrc.width / 2, floorSrc.height / 2 }, walls, boundsNorth, coord });
-		stack.push_back(Renderable{ pos + Vector2f{ floorSrc.width / 2, floorSrc.height }, walls, boundsNorth, coord });
 		tile.SetIsNorthWall(true, wallSrc);
+
+		stack.push_back(Renderable{ pos + Vector2f{ floorSrc.width / 2, floorSrc.height / 2 }, wallPair, coord });
+		stack.push_back(Renderable{ pos + Vector2f{ floorSrc.width / 2, floorSrc.height }, wallPair, coord });
 	}
 
 	m_Tiles[coord] = tile;

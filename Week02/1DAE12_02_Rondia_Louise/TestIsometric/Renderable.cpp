@@ -2,7 +2,30 @@
 #include "Renderable.h"
 
 Renderable::Renderable(const Vector2f& pos, Texture* texture, const Rectf& textureBounds, const Vector2i& coord) : 
-	m_Pos(pos), m_Texture(texture), m_TextureBounds(textureBounds), m_Coord(coord)
+	m_Pos(pos), 
+	m_Texture(texture), 
+	m_TextureBounds(textureBounds), 
+	m_Coord(coord)
+{}
+Renderable::Renderable(float x, float y, Texture* texture, const Rectf& textureBounds, const Vector2i& coord) :
+	m_Pos(Vector2f{x, y}), 
+	m_Texture(texture), 
+	m_TextureBounds(textureBounds), 
+	m_Coord(coord)
+{}
+
+Renderable::Renderable(const Vector2f& pos, std::pair<Texture*, Rectf> texturePair, const Vector2i& coord) : 
+	m_Pos(pos), 
+	m_Texture(texturePair.first), 
+	m_TextureBounds(texturePair.second), 
+	m_Coord(coord)
+{}
+
+Renderable::Renderable(float x, float y, std::pair<Texture*, Rectf> texturePair, const Vector2i& coord) : 
+	m_Pos(Vector2f{x, y}), 
+	m_Texture(texturePair.first),
+	m_TextureBounds(texturePair.second),
+	m_Coord(coord)
 {}
 
 

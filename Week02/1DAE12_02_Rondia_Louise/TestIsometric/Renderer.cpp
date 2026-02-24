@@ -23,6 +23,8 @@ void Renderer::DrawMap(const Rectf& viewPort) const {
 	for (int idx{}; idx < m_Stack.size(); ++idx) {
 		const Renderable& renderable{ m_Stack[idx] };
 
+
+		// make a camera, use the transform to move it and renderable doesn't know about the viewport
 		renderable.Draw(viewPort);
 	}
 }

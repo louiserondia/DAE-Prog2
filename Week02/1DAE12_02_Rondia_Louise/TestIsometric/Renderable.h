@@ -7,6 +7,9 @@ class Renderable
 public:
 
 	Renderable(const Vector2f& pos, Texture* texture, const Rectf& textureBounds, const Vector2i& coord);
+	Renderable(float x, float y, Texture* texture, const Rectf& textureBounds, const Vector2i& coord);
+	Renderable(const Vector2f& pos, std::pair<Texture*, Rectf> texturePair, const Vector2i& coord);
+	Renderable(float x, float y, std::pair<Texture*, Rectf> texturePair, const Vector2i& coord);
 
 	float GetDistToMaxWidth(int width) const;
 	void Draw(const Rectf& bounds) const;

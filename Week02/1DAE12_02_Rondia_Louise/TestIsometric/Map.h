@@ -6,6 +6,7 @@
 #include "Tile.h"
 #include <algorithm>
 #include "Renderable.h"
+#include "TextureManager.h"
 
 class Map
 {
@@ -26,6 +27,8 @@ private:
 	void InterpretToken(std::vector<Renderable>& stack, Vector2i coord, const std::string& token);
 
 	std::unordered_map<Vector2i, Tile> m_Tiles{};
+
+	TextureManager* m_TextureManager{};
 
 	Texture* floors{};
 	Texture* walls{};
