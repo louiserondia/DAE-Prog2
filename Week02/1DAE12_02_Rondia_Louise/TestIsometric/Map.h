@@ -25,6 +25,7 @@ private:
 
 	Vector2f ScreenPosFromCoord(const Vector2i& coord, float w, float h);
 	void InterpretToken(std::vector<Renderable>& stack, Vector2i coord, const std::string& token);
+	void AddWallToStack(int token, std::vector<Renderable>& stack, const Vector2i& coord);
 
 	std::unordered_map<Vector2i, Tile> m_Tiles{};
 
@@ -35,7 +36,7 @@ private:
 	Rectf		floorSrc{ 0.f, 0.f, 128.f, 64.f };
 	Rectf		wallSrc{ 0.f, 0.f, 64.f, 96.f };
 
-	const std::string mapStr{ "000 002 000 000\n000 110 022 000\n000 111 101 020\n000 000 000 000\n" };
+	const std::string mapStr{ "100 102 100 100\n100 610 112 100\n100 612 602 110\n100 100 100 100\n" };
 	//const std::string mapStr{ "000 000\n011 000" }; 
 	// 1st digit is floor type (0 grass, 1 wood)
 	// 2nd digit is West  wall type (0 none, 1 interior, 2 exterior)

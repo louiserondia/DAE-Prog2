@@ -23,6 +23,7 @@ TextureManager::~TextureManager() {
 
 
 std::pair<Texture *, Rectf> TextureManager::GetTexture(Type type, int index) {
+	index -= 1; // 0 is NO_TEXTURE, so it starts at 1
 	Texture* texture{};
 	Vector2i dim{};
 	

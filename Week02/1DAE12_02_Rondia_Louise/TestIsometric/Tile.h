@@ -4,27 +4,26 @@
 #include "Texture.h"
 #include "Vector2i.h"
 #include <Vector2i.h>
+#include "TextureManager.h"
 
 class Tile
 {
 public:
-	void SetTile(const Rectf& floorSrc, bool isWestWall, bool isNorthWall);
 	void SetCoord(int x, int y);
 	void SetCoord(const Vector2i& c);
-	void SetIsWestWall(bool isWestWall, const Rectf& westWallSrc);
-	void SetIsNorthWall(bool isNorthWall, const Rectf& NorthWallSrc);
+	void SetWestWallType(int token);
+	void SetNorthWallType(int token);
 	
-	// temporary
 private:	
 
-	int	m_Type{}; // 0 is grass, 1 is wood
-	bool m_IsWestWall{};
-	bool m_IsNorthWall{};
+	int	 m_FloorType{}; // 0 is grass, 1 is wood
+	bool m_WestWallType{};
+	bool m_NorthWallType{};
 	Vector2i m_Coord{};
 	
 
 };
 
-// maybe tile needs to know it's type for sounds etc but not the texture
+// tile needs to know it's type for sounds etc but not the texture
 // also needs to know if it has a wall but not the rectf
 

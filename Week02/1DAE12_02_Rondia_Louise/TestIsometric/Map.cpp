@@ -2,6 +2,8 @@
 #include "Map.h"
 #include <sstream>
 
+typedef std::pair<Texture*, Rectf> pair;
+
 void Map::Initialize() {
 	m_TextureManager = TextureManager::GetInstance();
 }
@@ -16,32 +18,42 @@ Vector2f Map::ScreenPosFromCoord(const Vector2i& coord, float w, float h) {
 	};
 }
 
+void Map::AddWallToStack(int token, std::vector<Renderable>& stack, const Vector2i& coord) {
+	const pair wallPair{ m_TextureManager->GetTexture(TextureManager::Type::wall, token) };
+	Vector2f pos{ ScreenPosFromCoord(coord, floorSrc.width, floorSrc.height) };
+
+	if (!(token & 1)) { // north wall is offset to the right
+		pos.x += floorSrc.width / 2;
+	}
+
+	pos.y += floorSrc.height / 2;
+	stack.push_back(Renderable{ pos, wallPair, coord });
+	pos.y += floorSrc.height / 2;
+	stack.push_back(Renderable{ pos, wallPair, coord });
+}
+
 void Map::InterpretToken(std::vector<Renderable>& stack, Vector2i coord, const std::string& token) {
 	if (token.length() != 3)
 		return;
 
+	int floorToken{ token[0] - 48 },
+		westWallToken{ token[1] - 48 },
+		northWallToken{ token[2] - 48 };
+
 	Tile tile{};
-	Vector2f pos{ ScreenPosFromCoord(coord, floorSrc.width, floorSrc.height) };
-	std::pair<Texture*, Rectf> floorPair{ m_TextureManager->GetTexture(TextureManager::Type::floor, 0) };
+	const Vector2f pos{ ScreenPosFromCoord(coord, floorSrc.width, floorSrc.height) };
+	const pair floorPair{ m_TextureManager->GetTexture(TextureManager::Type::floor, floorToken) };
 
 	tile.SetCoord(coord);
-	
+	tile.SetWestWallType(westWallToken);
+	tile.SetNorthWallType(northWallToken);
 	stack.push_back(Renderable{ pos, floorPair, coord });
-	if (token[1] != '0') {
-		std::pair<Texture*, Rectf> wallPair{ m_TextureManager->GetTexture(TextureManager::Type::wall, 0) };
 
-		tile.SetIsWestWall(true, wallSrc);
-
-		stack.push_back(Renderable{ pos.x, pos.y + floorSrc.height / 2 , wallPair, coord });
-		stack.push_back(Renderable{ pos.x, pos.y + floorSrc.height , wallPair, coord });
+	if (westWallToken != NO_TEXTURE) {
+		AddWallToStack(westWallToken, stack, coord);
 	}
-	if (token[2] != '0') {
-		std::pair<Texture*, Rectf> wallPair{ m_TextureManager->GetTexture(TextureManager::Type::wall, 1) };
-
-		tile.SetIsNorthWall(true, wallSrc);
-
-		stack.push_back(Renderable{ pos + Vector2f{ floorSrc.width / 2, floorSrc.height / 2 }, wallPair, coord });
-		stack.push_back(Renderable{ pos + Vector2f{ floorSrc.width / 2, floorSrc.height }, wallPair, coord });
+	if (northWallToken != NO_TEXTURE) {
+		AddWallToStack(northWallToken, stack, coord);
 	}
 
 	m_Tiles[coord] = tile;
