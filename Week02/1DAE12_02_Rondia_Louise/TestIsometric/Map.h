@@ -11,21 +11,21 @@
 class Map
 {
 public:
-	std::vector<Renderable> MapParser();
+	std::vector< std::unique_ptr<Renderable>> MapParser();
 	void Initialize();
 	void Delete();
 	void PrintStack() const;
-	int GetWidth() const { return width; }
-	int GetHeight() const { return height; }
+	int GetWidth() const { return m_Width; }
+	int GetHeight() const { return m_Height; }
 
 private:
 
-	int width{};
-	int height{};
+	int m_Width{};
+	int m_Height{};
 
 	Vector2f ScreenPosFromCoord(const Vector2i& coord, float w, float h);
-	void InterpretToken(std::vector<Renderable>& stack, Vector2i coord, const std::string& token);
-	void AddWallToStack(int token, std::vector<Renderable>& stack, const Vector2i& coord);
+	void InterpretToken(std::vector<std::unique_ptr<Renderable>>& stack, Vector2i coord, const std::string& token);
+	void AddWallToStack(int token, std::vector<std::unique_ptr<Renderable>>& stack, const Vector2i& coord);
 
 	std::unordered_map<Vector2i, Tile> m_Tiles{};
 

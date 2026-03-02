@@ -20,6 +20,7 @@ struct Vector2i final
 	Vector2i& operator+=(const Vector2i& rhs);
 	Vector2i& operator-=(const Vector2i& rhs);
 	bool operator==(const Vector2i& rhs) const;
+	bool operator==(Vector2i& rhs) const;
 	explicit operator Vector2i();
 
 	// -------------------------

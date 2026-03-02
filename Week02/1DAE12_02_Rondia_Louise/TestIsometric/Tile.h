@@ -16,7 +16,7 @@ public:
 	
 private:	
 
-	int	 m_FloorType{}; // 0 is grass, 1 is wood
+	int	 m_FloorType{};
 	bool m_WestWallType{};
 	bool m_NorthWallType{};
 	Vector2i m_Coord{};
@@ -24,6 +24,6 @@ private:
 
 };
 
-// tile needs to know it's type for sounds etc but not the texture
+// tile needs to know its type for sounds etc but not the texture
 // also needs to know if it has a wall but not the rectf
 

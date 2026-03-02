@@ -17,17 +17,16 @@ class TextureManager
 {
 public:
 
-	// i could make a macro for each type of wall like BRICK_NORTH 0 BRICK_WEST 1
-
 	enum class Type {
 		floor,
-		wall
+		wall,
+		character
 	};
 
 	static TextureManager* GetInstance();
 	~TextureManager();
 
-	std::pair<Texture *, Rectf> GetTexture(Type type, int index);
+	std::pair<Texture *, Rectf> GetTexture(Type type, int index = 0);
 
 private:
 
@@ -37,6 +36,7 @@ private:
 
 	Texture* m_FloorsTexture{};
 	Texture* m_WallsTexture{};
+	Texture* m_CharacterTexture{};
 
 	Vector2i m_FloorsDim{ 3, 6 };
 	Vector2i m_WallsDim{ 6, 4 };

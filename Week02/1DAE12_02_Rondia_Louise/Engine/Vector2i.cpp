@@ -151,6 +151,11 @@ bool Vector2i::operator==(const Vector2i& rhs) const
 	return x == rhs.x && y == rhs.y;
 }
 
+bool Vector2i::operator==(Vector2i& rhs) const
+{
+	return x == rhs.x && y == rhs.y;
+}
+
 Vector2i::operator Vector2i()
 {
 	return Vector2i{ x,y };

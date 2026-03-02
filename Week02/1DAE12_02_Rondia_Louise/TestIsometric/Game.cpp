@@ -15,9 +15,11 @@ Game::~Game()
 void Game::Initialize()
 {
 	m_Map.Initialize();
-	m_Renderer = Renderer(m_Map.GetWidth(), m_Map.GetHeight(), m_Map.MapParser());
+	std::cout << "widddd " << m_Map.GetWidth() << std::endl;
+	m_Renderer = Renderer(m_Map.MapParser());
+	m_Renderer.SetDimensions(m_Map.GetWidth(), m_Map.GetHeight());
+	m_Character = m_Renderer.CreateCharacter();
 	m_Renderer.SortStack();
-
 }
 
 void Game::Cleanup()
@@ -25,8 +27,31 @@ void Game::Cleanup()
 	m_Map.Delete();
 }
 
+Vector2i ScreenCoordFromPo(const Vector2f& pos, float w, float h) {
+	float halfW = w * 0.5f;
+	float halfH = h * 0.5f;
+
+	float gx = (pos.x / halfW - pos.y / halfH) * 0.5f;
+	float gy = (pos.x / halfW + pos.y / halfH) * 0.5f;
+
+	return Vector2i{
+		static_cast<int>(std::floor(gx)),
+		static_cast<int>(std::floor(gy))
+	};
+}
+
 void Game::Update(float elapsedSec)
 {
+	const float speed{ 100.f };
+	if (m_Dir.x || m_Dir.y) {
+		m_Camera.Add(elapsedSec * m_Dir.x * speed, elapsedSec * m_Dir.y * speed);
+		m_Character->SetPos(m_Camera.Get());
+		std::cout << m_Camera.Get().x << " y " << m_Camera.Get().y << std::endl;
+		std::cout << ScreenCoordFromPo(m_Camera.Get(), 128.f, 64.f).x << " coord y " << ScreenCoordFromPo(m_Camera.Get(), 128.f, 64.f).y << std::endl;
+		m_Character->SetCoord(ScreenCoordFromPo(m_Camera.Get(), 128.f, 64.f));
+		m_Renderer.SortStack();
+	}
+
 	// Check keyboard state
 	//const Uint8 *pStates = SDL_GetKeyboardState( nullptr );
 	//if ( pStates[SDL_SCANCODE_RIGHT] )
@@ -42,30 +67,47 @@ void Game::Update(float elapsedSec)
 void Game::Draw() const
 {
 	ClearBackground();
-	m_Renderer.DrawMap(GetViewPort());
+	m_Renderer.DrawMap(GetViewPort(), m_Camera, m_Dir);
 }
 
 void Game::ProcessKeyDownEvent(const SDL_KeyboardEvent& e)
 {
-	//std::cout << "KEYDOWN event: " << e.keysym.sym << std::endl;
+	switch (e.keysym.sym)
+	{
+	case SDLK_LEFT:
+		m_Dir.x = -1;
+		break;
+	case SDLK_RIGHT:
+		m_Dir.x = 1;
+		break;
+	case SDLK_DOWN:
+		m_Dir.y = -1;
+		break;
+	case SDLK_UP:
+		m_Dir.y = 1;
+		break;
+	}
 }
 
 void Game::ProcessKeyUpEvent(const SDL_KeyboardEvent& e)
 {
-	//std::cout << "KEYUP event: " << e.keysym.sym << std::endl;
-	//switch ( e.keysym.sym )
-	//{
-	//case SDLK_LEFT:
-	//	//std::cout << "Left arrow key released\n";
-	//	break;
-	//case SDLK_RIGHT:
-	//	//std::cout << "`Right arrow key released\n";
-	//	break;
-	//case SDLK_1:
+	switch ( e.keysym.sym )
+	{
+	case SDLK_LEFT:
+		m_Dir.x = 0;
+		break;
+	case SDLK_RIGHT:
+		m_Dir.x = 0;
+		break;
+	case SDLK_DOWN:
+		m_Dir.y = 0;
+		break;
+	case SDLK_UP:
+		m_Dir.y = 0;
+		break;
 	//case SDLK_KP_1:
-	//	//std::cout << "Key 1 released\n";
 	//	break;
-	//}
+	}
 }
 
 void Game::ProcessMouseMotionEvent(const SDL_MouseMotionEvent& e)

@@ -3,6 +3,8 @@
 #include "Texture.h"
 #include "Map.h"
 #include "Renderer.h"
+#include "Camera.h"
+#include "CharacterRenderable.h"
 
 class Game : public BaseGame
 {
@@ -33,5 +35,25 @@ private:
 	void ClearBackground( ) const;
 
 	Map			m_Map{};
-	Renderer	m_Renderer{};
+	Renderer	m_Renderer; // not possible to use {} bc no default
+	Camera		m_Camera{};
+	Vector2i	m_Dir{};
+	CharacterRenderable *m_Character;
 };
+
+
+// TO DO
+
+// camera : 
+//		- suit le perso
+//		- click droit bouge
+//		- zoom dezoom
+// 
+// perso :
+//		
+// murs:
+//		- si perso derriere, ne pas afficher
+//		- connecter murs entre eux (map chaque mur en key et en value une liste de murs connectes
+//			murs de devant sont pas connectes a ceux derriere mais ceux de derrieres sont connectes a ceux de devant
+// 
+//	

@@ -18,7 +18,7 @@ Vector2f Map::ScreenPosFromCoord(const Vector2i& coord, float w, float h) {
 	};
 }
 
-void Map::AddWallToStack(int token, std::vector<Renderable>& stack, const Vector2i& coord) {
+void Map::AddWallToStack(int token, std::vector<std::unique_ptr<Renderable>>& stack, const Vector2i& coord) {
 	const pair wallPair{ m_TextureManager->GetTexture(TextureManager::Type::wall, token) };
 	Vector2f pos{ ScreenPosFromCoord(coord, floorSrc.width, floorSrc.height) };
 
@@ -27,12 +27,12 @@ void Map::AddWallToStack(int token, std::vector<Renderable>& stack, const Vector
 	}
 
 	pos.y += floorSrc.height / 2;
-	stack.push_back(Renderable{ pos, wallPair, coord });
+	stack.push_back(std::make_unique<Renderable>(Renderable{ pos, wallPair, coord }));
 	pos.y += floorSrc.height / 2;
-	stack.push_back(Renderable{ pos, wallPair, coord });
+	stack.push_back(std::make_unique<Renderable>(Renderable{ pos, wallPair, coord }));
 }
 
-void Map::InterpretToken(std::vector<Renderable>& stack, Vector2i coord, const std::string& token) {
+void Map::InterpretToken(std::vector<std::unique_ptr<Renderable>>& stack, Vector2i coord, const std::string& token) {
 	if (token.length() != 3)
 		return;
 
@@ -47,7 +47,7 @@ void Map::InterpretToken(std::vector<Renderable>& stack, Vector2i coord, const s
 	tile.SetCoord(coord);
 	tile.SetWestWallType(westWallToken);
 	tile.SetNorthWallType(northWallToken);
-	stack.push_back(Renderable{ pos, floorPair, coord });
+	stack.push_back(std::make_unique<Renderable>(Renderable{ pos, floorPair, coord }));
 
 	if (westWallToken != NO_TEXTURE) {
 		AddWallToStack(westWallToken, stack, coord);
@@ -59,8 +59,11 @@ void Map::InterpretToken(std::vector<Renderable>& stack, Vector2i coord, const s
 	m_Tiles[coord] = tile;
 }
 
-std::vector<Renderable> Map::MapParser() {
-	std::vector<Renderable> stack{};
+// return here moves the vector instead of copy 
+// so unique ptr are moved and change of owner -> renderer
+
+std::vector<std::unique_ptr<Renderable>> Map::MapParser() {
+	std::vector<std::unique_ptr<Renderable>> stack{};
 	std::istringstream iss(mapStr);
 	std::string line;
 	Vector2i coord{};
@@ -79,7 +82,9 @@ std::vector<Renderable> Map::MapParser() {
 		std::cout << std::endl;
 	}
 
-	width = coord.x;
-	height = coord.y;
+	m_Width = coord.x;
+	m_Height = coord.y;
+
+	std::cout << "yo " << m_Width << " " << m_Height << std::endl;
 	return stack;
 }

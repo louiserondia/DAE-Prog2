@@ -5,23 +5,28 @@
 class Renderable
 {
 public:
-
+	Renderable() = default;
 	Renderable(const Vector2f& pos, Texture* texture, const Rectf& textureBounds, const Vector2i& coord);
 	Renderable(float x, float y, Texture* texture, const Rectf& textureBounds, const Vector2i& coord);
 	Renderable(const Vector2f& pos, std::pair<Texture*, Rectf> texturePair, const Vector2i& coord);
 	Renderable(float x, float y, std::pair<Texture*, Rectf> texturePair, const Vector2i& coord);
+	
+	// with name for debug
+	Renderable(const Vector2f& pos, std::pair<Texture*, Rectf> texturePair, const Vector2i& coord, const std::string& str);
 
-	float GetDistToMaxWidth(int width) const;
-	void Draw(const Rectf& bounds) const;
+	float GetDistToBottomRight(int width) const;
+	virtual void Draw() const;
+	Vector2f GetPos() const;
+	Vector2i GetCoord() const;
 
-private:
-
+	std::string name{}; // for debug
+protected:
 	Vector2f m_Pos{};
-	Texture* m_Texture{};
-	Rectf	 m_TextureBounds{};
 	Vector2i m_Coord{};
 
-	// plus besoin
-	bool operator<(const Renderable& rhs) const;
-};
+private:
+	Texture* m_Texture{};
+	Rectf	 m_TextureBounds{};
+	// add a type for comparaison
 
+};

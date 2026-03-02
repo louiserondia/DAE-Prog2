@@ -13,12 +13,16 @@ TextureManager* TextureManager::GetInstance() {
 
 TextureManager::TextureManager() :
 	m_FloorsTexture(new Texture{ "floors.png" }),
-	m_WallsTexture(new Texture{ "walls.png" })
+	m_WallsTexture(new Texture{ "walls.png" }),
+	m_CharacterTexture(new Texture{ "lion.png" })
 {}
 
 TextureManager::~TextureManager() {
 	delete m_FloorsTexture;
 	delete m_WallsTexture;
+	delete m_CharacterTexture;
+	delete instance;
+	// is it really deleted ?
 }
 
 
@@ -37,12 +41,14 @@ std::pair<Texture *, Rectf> TextureManager::GetTexture(Type type, int index) {
 		texture = m_WallsTexture;
 		dim = m_WallsDim;
 		break;
-	default:
-		texture = m_FloorsTexture;
-		dim = m_WallsDim;
+	case TextureManager::Type::character:
+		texture = m_CharacterTexture;
+		return std::make_pair(texture, Rectf{0.f, 0.f, texture->GetWidth() ,texture->GetHeight()});
+	default: 
 		break;
 	}
 
+	// si pas de texture
 	const float w{ texture->GetWidth() }, h{ texture->GetHeight() };
 	const Rectf bounds{ 
 		w / dim.x * (index % dim.x),
