@@ -2,6 +2,9 @@
 #include "Map.h"
 #include <sstream>
 
+int Map::m_Width = 0;
+int Map::m_Height = 0;
+
 typedef std::pair<Texture*, Rectf> pair;
 
 void Map::Initialize() {
@@ -27,9 +30,9 @@ void Map::AddWallToStack(int token, std::vector<std::unique_ptr<Renderable>>& st
 	}
 
 	pos.y += floorSrc.height / 2;
-	stack.push_back(std::make_unique<Renderable>(Renderable{ pos, wallPair, coord }));
+	stack.push_back(std::make_unique<Renderable>(Renderable{ pos, wallPair, coord, 1, "wall bottom" }));
 	pos.y += floorSrc.height / 2;
-	stack.push_back(std::make_unique<Renderable>(Renderable{ pos, wallPair, coord }));
+	stack.push_back(std::make_unique<Renderable>(Renderable{ pos, wallPair, coord, 1, "wall top" }));
 }
 
 void Map::InterpretToken(std::vector<std::unique_ptr<Renderable>>& stack, Vector2i coord, const std::string& token) {
@@ -47,7 +50,7 @@ void Map::InterpretToken(std::vector<std::unique_ptr<Renderable>>& stack, Vector
 	tile.SetCoord(coord);
 	tile.SetWestWallType(westWallToken);
 	tile.SetNorthWallType(northWallToken);
-	stack.push_back(std::make_unique<Renderable>(Renderable{ pos, floorPair, coord }));
+	stack.push_back(std::make_unique<Renderable>(Renderable{ pos, floorPair, coord, 0, "floor"}));
 
 	if (westWallToken != NO_TEXTURE) {
 		AddWallToStack(westWallToken, stack, coord);

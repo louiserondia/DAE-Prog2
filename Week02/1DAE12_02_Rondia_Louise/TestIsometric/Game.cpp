@@ -15,9 +15,8 @@ Game::~Game()
 void Game::Initialize()
 {
 	m_Map.Initialize();
-	std::cout << "widddd " << m_Map.GetWidth() << std::endl;
 	m_Renderer = Renderer(m_Map.MapParser());
-	m_Renderer.SetDimensions(m_Map.GetWidth(), m_Map.GetHeight());
+	m_Renderer.SetDimensions(Map::GetWidth(), m_Map.GetHeight());
 	m_Character = m_Renderer.CreateCharacter();
 	m_Renderer.SortStack();
 }
@@ -46,8 +45,8 @@ void Game::Update(float elapsedSec)
 	if (m_Dir.x || m_Dir.y) {
 		m_Camera.Add(elapsedSec * m_Dir.x * speed, elapsedSec * m_Dir.y * speed);
 		m_Character->SetPos(m_Camera.Get());
-		std::cout << m_Camera.Get().x << " y " << m_Camera.Get().y << std::endl;
-		std::cout << ScreenCoordFromPo(m_Camera.Get(), 128.f, 64.f).x << " coord y " << ScreenCoordFromPo(m_Camera.Get(), 128.f, 64.f).y << std::endl;
+		//std::cout << m_Camera.Get().x << " y " << m_Camera.Get().y << std::endl;
+		//std::cout << ScreenCoordFromPo(m_Camera.Get(), 128.f, 64.f).x << " coord y " << ScreenCoordFromPo(m_Camera.Get(), 128.f, 64.f).y << std::endl;
 		m_Character->SetCoord(ScreenCoordFromPo(m_Camera.Get(), 128.f, 64.f));
 		m_Renderer.SortStack();
 	}

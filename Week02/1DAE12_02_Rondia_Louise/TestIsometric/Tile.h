@@ -21,6 +21,7 @@ private:
 	bool m_NorthWallType{};
 	Vector2i m_Coord{};
 	
+	// pointer to renderable 
 
 };
 

@@ -14,7 +14,6 @@ public:
 
 	void SetDimensions(int width, int height);
 	void DrawMap(const Rectf& viewPort, const Camera& camera, const Vector2i &dir) const;
-	void PrintStack() const;
 	void SortStack();
 	void PushBack(const Renderable& character);
 	CharacterRenderable* CreateCharacter();

@@ -1,5 +1,6 @@
 #include "pch.h"
 #include "TextureManager.h"
+#include <iostream>
 
 TextureManager* TextureManager::instance = nullptr;
 
@@ -18,6 +19,7 @@ TextureManager::TextureManager() :
 {}
 
 TextureManager::~TextureManager() {
+	std::cout << "yooooo\n";
 	delete m_FloorsTexture;
 	delete m_WallsTexture;
 	delete m_CharacterTexture;

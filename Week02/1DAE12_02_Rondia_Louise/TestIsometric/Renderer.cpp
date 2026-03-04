@@ -8,32 +8,16 @@ Renderer::Renderer(std::vector<std::unique_ptr<Renderable>> stack) :
 {
 }
 
+
 void Renderer::SetDimensions(int width, int height) {
 	//, m_Map.GetWidth(), m_Map.GetHeight()
 	m_Width = width;
 	m_Height = height;
-	
-	m_CompareRenderables = 
+
+	m_CompareRenderables =
 		[w = m_Width](const std::unique_ptr<Renderable>& lhs, const std::unique_ptr<Renderable>& rhs) {
-		if (lhs.get()->name == "lion") {
-			std::cout << "w : " << w << std::endl;
-			std::cout << "lhs : " << lhs.get()->GetDistToBottomRight(w) 
-					<< ", rhs : " << rhs.get()->GetDistToBottomRight(w) << std::endl;
-		}
-		// c broken ici
-		// if floor, always smaller
-		return lhs.get()->GetDistToBottomRight(w) < rhs.get()->GetDistToBottomRight(w);
+		return *lhs < *rhs;
 		};
-}
-
-void Renderer::PrintStack() const {
-	std::cout << "---- STACK ----\n";
-	//for (const Renderable& item : stack) {
-		//std::cout << "[ " << item.coord.x << ", " << item.coord.y << " ] (" << item.GetDistToMaxWidth(item.coord, 4) << ") ";
-	//}
-
-	std::cout << std::endl;
-	std::cout << std::endl;
 }
 
 Color4f GetColor(const Vector2i& dir) {
@@ -86,6 +70,13 @@ void Renderer::DrawMap(const Rectf& viewPort, const Camera& camera, const Vector
 
 void Renderer::SortStack() {
 	std::sort(m_Stack.rbegin(), m_Stack.rend(), m_CompareRenderables);
+	//for (const std::unique_ptr<Renderable>& item : m_Stack) {
+	//	std::cout << "name : " << item.get()->name
+	//		<< ", dist : " << item.get()->GetDistToBottomRight(m_Width)
+	//		<< ", priority : " << item.get()->GetPriority()
+	//		<< std::endl;
+	//}
+	//std::cout << "-------------------------------\n";
 }
 
 void Renderer::PushBack(const Renderable& character) { // characterrenderable instead 
@@ -109,6 +100,7 @@ CharacterRenderable* Renderer::CreateCharacter() {
 			pos,
 			TextureManager::GetInstance()->GetTexture(TextureManager::Type::character),
 			coord,
+			2, // priority
 			"lion"
 			});
 	m_Character = character.get();

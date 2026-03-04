@@ -15,13 +15,13 @@ public:
 	void Initialize();
 	void Delete();
 	void PrintStack() const;
-	int GetWidth() const { return m_Width; }
-	int GetHeight() const { return m_Height; }
+	static int GetWidth() { return m_Width; }
+	static int GetHeight() { return m_Height; }
 
 private:
 
-	int m_Width{};
-	int m_Height{};
+	static int m_Width;
+	static int m_Height;
 
 	Vector2f ScreenPosFromCoord(const Vector2i& coord, float w, float h);
 	void InterpretToken(std::vector<std::unique_ptr<Renderable>>& stack, Vector2i coord, const std::string& token);
