@@ -1,3 +1,7 @@
+# Semester 2 of programming at DAE (Howest)
+A few exercises and Project Zombouise
+
+
 <a name="readme-top"></a>
 
 <!-- GENERAL GAME INFO -->
@@ -53,37 +57,21 @@
 <img width="1311" height="871" alt="Capture d&#39;écran 2026-06-01 012211" src="https://github.com/user-attachments/assets/65594cf9-7727-4156-92ab-8a7964523bc1" />
 <img width="1320" height="879" alt="Capture d&#39;écran 2026-06-01 012311" src="https://github.com/user-attachments/assets/46635d40-45f0-4c79-b265-ea5e136d20a3" />
 
-
-Here's why:
-* The game is freaking cool
-* Different AIs and algorithms (path-finding, flocking)
-* Raycasting
-* Infinite sources of fun
-
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 
 ## My version
 
-This section gives a clear and detailed overview of which parts of the original game I planned to make.
-
-### The minimum I will most certainly develop:
-* An isometric view of the map in 2D (alpha release of the game)
-* Map is read from a custom file
+* An isometric view of the map in 2D 
+* Customisable map read from file
 * Animations of movements
 * 8 directions walk, run and crouch walk
-* Zombies attacking using path-finding
 * Camera Movements
-
-### What I will probably make as well:
 * Fight with the zombies
-* Sound also attracts zombies
-
-### What I plan to create if I have enough time left:
-* Inventory 
-* Health (e.g. hunger, thirst) system
-* Complex raycasting, tiles are darkened when outside of FOV
-* Flocking
+* Sound also attracts zombies, speed will influence their radius of detection
+* Health system
+* FOV used to darken areas not visible by the player and zombies are not visible (unless very close)
+* BFS algorithm used for the zombies to track the player
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -114,7 +102,7 @@ Additional screenshots and demos work well in this space.
 * shift to run
 * right-click to look around
 * space-bar to attack (push or stomp if the enemy zombie is on the ground)
-* space-bar to restart
+* space-bar to restart when dead
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -169,15 +157,6 @@ My classes WalkingEntity and WalkingRenderable are abstract classes which Player
 - [x] week 08 topics applied (copy semantics and object slicing)
 - [x] week 09 topics applied (optional) (move semantics)
 - [x] week 10 topics applied (optional) (streams)
-
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
-
-<!-- CONTACT -->
-## Contact
-
-Louise Rondia - louise.rondia@student.howest.be
-
-Project Link: [https://github.com/HowestDAE/gd12-louiserondia](https://github.com/HowestDAE/gd12-louiserondia)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
