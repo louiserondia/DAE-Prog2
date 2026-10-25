@@ -50,12 +50,12 @@ A few exercises and Project Zombouise
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
+<img width="1320" height="879" alt="image" src="https://github.com/user-attachments/assets/2921428e-97b7-4c64-837c-86bbab17d26f" />
+<img width="1311" height="871" alt="image" src="https://github.com/user-attachments/assets/f2621468-f9f4-4b38-9b26-65c1731db11f" />
+<img width="1330" height="893" alt="image" src="https://github.com/user-attachments/assets/89f614aa-9469-41f0-b75a-b7fffb4b757d" />
+<img width="1335" height="883" alt="image" src="https://github.com/user-attachments/assets/dd6ef520-639b-45fd-86a2-e5c3cb2586fb" />
+<img width="1335" height="902" alt="image" src="https://github.com/user-attachments/assets/193f2e0a-b0d7-4af4-85f6-75dd5e7d52e3" />
 
-<img width="1335" height="902" alt="Capture d&#39;écran 2026-06-01 011627" src="https://github.com/user-attachments/assets/d56a0907-f975-4c20-918e-920c255eca3c" />
-<img width="1335" height="883" alt="Capture d&#39;écran 2026-06-01 012825" src="https://github.com/user-attachments/assets/9e3f5c08-f493-4700-bc0f-a6df4b3af678" />
-<img width="1330" height="893" alt="Capture d&#39;écran 2026-06-01 012920" src="https://github.com/user-attachments/assets/bf81aaf5-6b39-436d-b74c-6aea6f8cb3db" />
-<img width="1311" height="871" alt="Capture d&#39;écran 2026-06-01 012211" src="https://github.com/user-attachments/assets/65594cf9-7727-4156-92ab-8a7964523bc1" />
-<img width="1320" height="879" alt="Capture d&#39;écran 2026-06-01 012311" src="https://github.com/user-attachments/assets/46635d40-45f0-4c79-b265-ea5e136d20a3" />
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -135,28 +135,8 @@ On the gameplay aspect, we have a similar tree with WalkingEntity, parent of Zom
 
 My classes WalkingEntity and WalkingRenderable are abstract classes which Player and Zombie (and their Renderable part) inherit from. They must own methods such as UpdatePos, declared int the parent class as pure virtual and they use compile-time and run-time polymorphism for methods such as Attack or Draw.
 
-<img width="880" height="1066" alt="image" src="https://github.com/user-attachments/assets/1db1dbb0-58e5-48fe-a7cb-d83f946437d0" />
+<img width="880" height="1066" alt="image" src="https://github.com/user-attachments/assets/f750916f-1fd3-40f3-a41e-2781393fe37c" />
 
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
-
-
-<!-- CHECKLIST -->
-## Checklist
-
-- [x] Accept / set up github project
-- [x] week 01 topics applied
-    - [x] const keyword applied proactively (variables, functions,..)
-    - [x] static keyword applied proactively (class variables, static functions,..)
-    - [x] object composition (optional)
-- [x] week 02 topics applied (classes basics)
-- [x] week 03 topics applied (classes object lifecycle)
-- [x] week 04 topics applied (inheritance and composition)
-- [x] week 05 topics applied (polymorphism and inheritance)
-- [x] week 06 topics applied (operator overloading and polymorphism)
-- [x] week 07 topics applied (copy semantics and operator overloading)
-- [x] week 08 topics applied (copy semantics and object slicing)
-- [x] week 09 topics applied (optional) (move semantics)
-- [x] week 10 topics applied (optional) (streams)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
